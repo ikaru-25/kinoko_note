@@ -12,7 +12,18 @@ class CameraResultPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('きのこノート'),
       ),
-      body: Center(child: Image.file(File(imagePath))),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+              child: Container(
+            width: 600,
+            height: 240,
+            child: Image.file(File(imagePath), fit: BoxFit.cover),
+          ))
+        ],
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showForm(context),
 

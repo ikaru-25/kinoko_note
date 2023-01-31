@@ -74,7 +74,7 @@ class MenuPage extends StatelessWidget {
                             color: Colors.teal[200],
                             margin: const EdgeInsets.all(15),
                             child: ListTile(
-                              leading: Icon(Icons.search),
+                              leading: Icon(Icons.import_contacts),
                               title: Text("観察ガイド"),
                             ),
                           ),

@@ -49,7 +49,19 @@ class _CameraPageState extends State<CameraPage> {
             future: _initializeControllerFuture,
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return CameraPreview(_controller);
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                        child: Container(
+                      width: 600,
+                      height: 240,
+                      child: CameraPreview(_controller),
+                    ))
+                  ],
+                ));
+                // return CameraPreview(_controller);
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
