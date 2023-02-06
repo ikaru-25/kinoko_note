@@ -1,7 +1,11 @@
 // https://zenn.dev/mamushi/articles/flutter_camera
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'camera_result_page.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:typed_data';
 
 class CameraPage extends StatefulWidget {
   /// Default Constructor
@@ -16,6 +20,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  late Future<Directory> _imagePath;
 
   @override
   void initState() {
@@ -23,6 +28,7 @@ class _CameraPageState extends State<CameraPage> {
 
     _controller = CameraController(widget.camera, ResolutionPreset.medium);
     _initializeControllerFuture = _controller.initialize();
+    _imagePath = getApplicationDocumentsDirectory();
   }
 
   @override
@@ -35,7 +41,15 @@ class _CameraPageState extends State<CameraPage> {
   Future getImage() async {
     // WidgetsFlutterBinding.ensureInitialized();
     final image = await _controller.takePicture();
+    final Uint8List buffer = await image.readAsBytes();
+    final String savePath = '$_imagePath/${image.name}';
+    final File saveFile = File(savePath);
+    // print("test-----------------------!!");
+    // saveFile.writeAsBytesSync(buffer, flush: true, mode: FileMode.write);
+    await ImageGallerySaver.saveImage(buffer, name: image.name);
+
     print(image.path);
+    return image;
   }
 
   @override
@@ -46,7 +60,7 @@ class _CameraPageState extends State<CameraPage> {
       ),
       body: Center(
         child: FutureBuilder<void>(
-            future: _initializeControllerFuture,
+            future: Future.wait([_initializeControllerFuture, _imagePath]),
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Center(
@@ -69,7 +83,9 @@ class _CameraPageState extends State<CameraPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final image = await _controller.takePicture();
+          // final image = await _controller.takePicture();
+          final image = await getImage();
+
           print(image.path);
 
           await Navigator.of(context).push(

@@ -36,6 +36,7 @@ dependencies:
   # カメラ用
   camera: ^0.9.4+19
   path_provider: ^2.0.9
+  image_gallery_saver:
   path:
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,8 +50,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  sqflite: ^2.0.2 # 追加
-  path_provider: ^2.0.5
+  # sqflite: ^2.0.2 # 追加
+  # path_provider: ^2.0.5
   provider: ^5.0.0
 
   flutter_launcher_icons: "^0.11.0"
