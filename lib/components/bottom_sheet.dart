@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kinoko_note/components/bottom_button.dart';
 
 Widget builderBottomSheet(context) {
   return Container(
@@ -148,12 +149,7 @@ Widget builderBottomSheet(context) {
         const SizedBox(
           height: 20,
         ),
-        ElevatedButton(
-          onPressed: () async {
-            // Navigator.of(context).pop();
-          },
-          child: Text('保存'),
-        )
+        BottomButton()
       ],
     ),
   );

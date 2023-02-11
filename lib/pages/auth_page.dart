@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bird_walk/pages/area_list_page.dart';
+import 'package:kinoko_note/pages/area_list_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthPage extends StatefulWidget {
