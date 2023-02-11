@@ -2,7 +2,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'camera_result_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data';
@@ -28,7 +27,7 @@ class _CameraPageState extends State<CameraPage> {
 
     _controller = CameraController(widget.camera, ResolutionPreset.medium);
     _initializeControllerFuture = _controller.initialize();
-    _imagePath = getApplicationDocumentsDirectory();
+    // _imagePath = getApplicationDocumentsDirectory();
   }
 
   @override
@@ -42,13 +41,17 @@ class _CameraPageState extends State<CameraPage> {
     // WidgetsFlutterBinding.ensureInitialized();
     final image = await _controller.takePicture();
     final Uint8List buffer = await image.readAsBytes();
+
+    String? _imagePath = (await getExternalStorageDirectory())?.path;
+    print("画像フォルダを表示------------------------");
+    print(_imagePath);
+
     final String savePath = '$_imagePath/${image.name}';
     final File saveFile = File(savePath);
-    // print("test-----------------------!!");
-    // saveFile.writeAsBytesSync(buffer, flush: true, mode: FileMode.write);
-    await ImageGallerySaver.saveImage(buffer, name: image.name);
-
-    print(image.path);
+    print(savePath);
+    saveFile.writeAsBytesSync(buffer, flush: true, mode: FileMode.write);
+    // ギャラリーへの保存
+    // await ImageGallerySaver.saveImage(buffer, name: image.name);
     return image;
   }
 
@@ -60,7 +63,7 @@ class _CameraPageState extends State<CameraPage> {
       ),
       body: Center(
         child: FutureBuilder<void>(
-            future: Future.wait([_initializeControllerFuture, _imagePath]),
+            future: Future.wait([_initializeControllerFuture]),
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Center(
