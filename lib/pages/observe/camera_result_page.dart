@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../../components//bottom_sheet.dart';
+import 'package:kinoko_note/components/bottom_sheet.dart';
 
 class CameraResultPage extends StatelessWidget {
   const CameraResultPage({Key? key, required this.imagePath}) : super(key: key);

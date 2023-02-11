@@ -1,4 +1,4 @@
-name: bird_walk
+name: kinoko_note
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -33,9 +33,13 @@ dependencies:
     sdk: flutter
   image_picker:
   sqflite:
+  drift:
+  sqlite3_flutter_libs:
   # カメラ用
   camera: ^0.9.4+19
   path_provider: ^2.0.9
+  moor_generator:
+  build_runner:
   image_gallery_saver:
   path:
   file_picker:
