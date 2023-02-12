@@ -32,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   image_picker:
+  # DB用
   sqflite:
   drift:
   sqlite3_flutter_libs:

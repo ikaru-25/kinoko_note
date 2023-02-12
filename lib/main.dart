@@ -1,24 +1,20 @@
-// main.dart
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kinoko_note/model/observation.dart';
 import 'firebase_options.dart';
-// import 'pages/auth_page.dart';
 import 'pages/menu_page.dart';
-import 'package:camera/camera.dart';
-
-late List<CameraDescription> _cameras;
-
-// import 'pages/area_list_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  final db = AppDatabase();
+  runApp(MyApp(db: db));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.db}) : super(key: key);
+
+  final AppDatabase db;
 
   @override
   Widget build(BuildContext context) {
