@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/bottom_button.dart';
 
-Widget builderBottomSheet(context) {
+Widget builderBottomSheet(context, Function setFormData) {
   return Container(
     padding: EdgeInsets.only(
       top: 15,
@@ -15,7 +15,9 @@ Widget builderBottomSheet(context) {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         TextField(
-          // controller: _fieldNameController,
+          onChanged: (value) {
+            setFormData(value);
+          },
           decoration: const InputDecoration(hintText: 'キノコの名前'),
         ),
         const SizedBox(

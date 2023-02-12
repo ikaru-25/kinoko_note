@@ -4,6 +4,11 @@ import 'package:kinoko_note/components/bottom_sheet.dart';
 import 'package:kinoko_note/pages/menu_page.dart';
 import '../../model/observation.dart';
 
+class Iobservation {
+  late String name;
+  late String imageName;
+}
+
 class CameraResultPage extends StatefulWidget {
   const CameraResultPage({Key? key, required this.imagePath}) : super(key: key);
   final String imagePath;
@@ -15,17 +20,29 @@ class CameraResultPage extends StatefulWidget {
 class _CameraResultPageState extends State<CameraResultPage> {
   late String imagePath;
   late AppDatabase db;
+  late Iobservation observation;
+
+  void setName(String name) {
+    observation.name = name;
+  }
+
+  void setImagePath(String imageName) {
+    observation.imageName = imageName;
+  }
 
   @override
   void initState() {
     super.initState();
     imagePath = widget.imagePath;
+    observation = new Iobservation();
     db = AppDatabase();
   }
 
   Future<int> addObservation() async {
+    // print('保存データーーーーーーーーーーー');
     // var test = await this.db.allObservationEntries;
-    return this.db.addObservation('テスト', 'パス');
+    // print(test);
+    return this.db.addObservation(this.observation.name, this.imagePath);
   }
 
   @override
@@ -76,6 +93,6 @@ class _CameraResultPageState extends State<CameraResultPage> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-        builder: (_) => builderBottomSheet(context));
+        builder: (_) => builderBottomSheet(context, setName));
   }
 }
