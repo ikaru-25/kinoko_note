@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/bottom_sheet.dart';
 import 'package:kinoko_note/pages/menu_page.dart';
-
 import '../../model/observation.dart';
 
 class CameraResultPage extends StatefulWidget {
@@ -24,8 +23,8 @@ class _CameraResultPageState extends State<CameraResultPage> {
     db = AppDatabase();
   }
 
-  Future<void> addObservation() {
-    print('保存処理を実行ーーーーーーーー');
+  Future<int> addObservation() async {
+    // var test = await this.db.allObservationEntries;
     return this.db.addObservation('テスト', 'パス');
   }
 
@@ -49,8 +48,8 @@ class _CameraResultPageState extends State<CameraResultPage> {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 child: Text('登録'),
-                onPressed: () {
-                  // this.addObservation();
+                onPressed: () async {
+                  await this.addObservation();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MenuPage()),

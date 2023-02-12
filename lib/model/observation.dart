@@ -30,6 +30,7 @@ class AppDatabase extends _$AppDatabase {
       select(observation).get();
 
   Future<int> addObservation(String name, String image_name) {
-    return into(observation).insert(ObservationCompanion(name: Value(name)));
+    return into(observation).insert(
+        ObservationCompanion(name: Value(name), image_name: Value(image_name)));
   }
 }
