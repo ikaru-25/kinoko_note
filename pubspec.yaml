@@ -35,15 +35,18 @@ dependencies:
   # DB用
   sqflite:
   drift:
+  moor_generator:
+  build_runner:
   sqlite3_flutter_libs:
   # カメラ用
   camera: ^0.9.4+19
   path_provider: ^2.0.9
-  moor_generator:
-  build_runner:
   image_gallery_saver:
   path:
   file_picker:
+  # ギャラリー表示
+  carousel_slider:
+  smooth_page_indicator:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
