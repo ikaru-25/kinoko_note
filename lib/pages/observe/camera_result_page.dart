@@ -86,19 +86,24 @@ class _CameraResultPageState extends State<CameraResultPage> {
         fit: StackFit.expand,
       ),
       bottomNavigationBar: BottomAppBar(
-        child: ElevatedButton(
-          child: Text('登録'),
-          onPressed: () async {
-            await this.addObservation();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MenuPage()),
-            );
-          },
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            )
+          ],
         ),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
             heroTag: 'camera',
@@ -109,6 +114,19 @@ class _CameraResultPageState extends State<CameraResultPage> {
             heroTag: 'note',
             onPressed: () => _showForm(context),
             child: Icon(Icons.edit_note),
+          ),
+          FloatingActionButton.extended(
+            elevation: 4.0,
+            label: const Text('Save'),
+            icon: const Icon(Icons.add),
+            // heroTag: 'save',
+            onPressed: () async {
+              await this.addObservation();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MenuPage()),
+              );
+            },
           ),
         ],
       ),
@@ -128,7 +146,6 @@ class _CameraResultPageState extends State<CameraResultPage> {
   }
 
   Widget buildImage(path, index) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 13),
         color: Colors.grey,
         child: Column(
           children: [
