@@ -7,10 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data';
 
 class CameraPage extends StatefulWidget {
-  /// Default Constructor
-  const CameraPage({Key? key, required this.camera}) : super(key: key);
-
-  final CameraDescription camera;
+  const CameraPage({Key? key}) : super(key: key);
 
   @override
   State<CameraPage> createState() => _CameraPageState();
@@ -18,15 +15,9 @@ class CameraPage extends StatefulWidget {
 
 class _CameraPageState extends State<CameraPage> {
   late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
-  late Future<Directory> _imagePath;
-
   @override
   void initState() {
     super.initState();
-
-    _controller = CameraController(widget.camera, ResolutionPreset.medium);
-    _initializeControllerFuture = _controller.initialize();
     // _imagePath = getApplicationDocumentsDirectory();
   }
 
@@ -35,6 +26,16 @@ class _CameraPageState extends State<CameraPage> {
     // ウィジェットが破棄されたら、コントローラーを破棄
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<CameraController> getCameraController() async {
+    List<CameraDescription> cameras = await availableCameras();
+    CameraDescription camera = cameras.first;
+
+    CameraController controller =
+        CameraController(camera, ResolutionPreset.medium);
+    await controller.initialize();
+    return controller;
   }
 
   Future getImage() async {
@@ -63,9 +64,12 @@ class _CameraPageState extends State<CameraPage> {
       ),
       body: Center(
         child: FutureBuilder<void>(
-            future: Future.wait([_initializeControllerFuture]),
-            builder: ((context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
+            // future: Future.wait([getCameraController()]),
+            future: getCameraController(),
+            builder: ((context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                _controller = snapshot.data;
+                print(snapshot.data);
                 return Center(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
