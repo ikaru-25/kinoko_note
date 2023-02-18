@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/bottom_sheet.dart';
 import 'package:kinoko_note/pages/menu_page.dart';
+import 'package:kinoko_note/pages/observe/camera_page.dart';
 import 'package:path/path.dart';
 import '../../model/observation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -24,7 +25,7 @@ class _CameraResultPageState extends State<CameraResultPage> {
   late String imagePath;
   late AppDatabase db;
   late Iobservation observation;
-  double? _deviceWidth, _deviceHeight;
+  double? _deviceHeight;
 
   void setName(String name) {
     observation.name = name;
@@ -53,7 +54,6 @@ class _CameraResultPageState extends State<CameraResultPage> {
 
   @override
   Widget build(BuildContext context) {
-    _deviceWidth = MediaQuery.of(context).size.width;
     _deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +107,12 @@ class _CameraResultPageState extends State<CameraResultPage> {
         children: [
           FloatingActionButton(
             heroTag: 'camera',
-            onPressed: () => _showForm(context),
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CameraPage()),
+              )
+            },
             child: Icon(Icons.add_a_photo),
           ),
           FloatingActionButton(
