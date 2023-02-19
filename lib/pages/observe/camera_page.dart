@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'camera_result_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data';
+import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({Key? key}) : super(key: key);
@@ -51,6 +52,8 @@ class _CameraPageState extends State<CameraPage> {
     final File saveFile = File(savePath);
     print(savePath);
     saveFile.writeAsBytesSync(buffer, flush: true, mode: FileMode.write);
+
+    UnSavedImagePrefs().setUnSavedImages(image.path);
     // ギャラリーへの保存
     // await ImageGallerySaver.saveImage(buffer, name: image.name);
     return image;

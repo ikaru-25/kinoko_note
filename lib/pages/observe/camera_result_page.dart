@@ -7,6 +7,7 @@ import '../../model/observation.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:io';
+import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
 
 class Iobservation {
   late String name;
@@ -24,8 +25,12 @@ class CameraResultPage extends StatefulWidget {
 class _CameraResultPageState extends State<CameraResultPage> {
   late String imagePath;
   late AppDatabase db;
+  late List<String> test;
   late Iobservation observation;
+  late UnSavedImagePrefs unSavedImagePrefs;
   double? _deviceHeight;
+
+  late List<String> _imagePaths;
 
   void setName(String name) {
     observation.name = name;
@@ -43,7 +48,13 @@ class _CameraResultPageState extends State<CameraResultPage> {
     imagePath = widget.imagePath;
     observation = new Iobservation();
     db = AppDatabase();
-    // _imagePath = (getExternalStorageDirectory());
+    unSavedImagePrefs = UnSavedImagePrefs();
+  }
+
+  @override
+  void dispose() {
+    // unSavedImagePrefs.removeUnSavedImages();
+    super.dispose();
   }
 
   Future<int> addObservation() async {
@@ -59,32 +70,37 @@ class _CameraResultPageState extends State<CameraResultPage> {
       appBar: AppBar(
         title: const Text('きのこノート'),
       ),
-      body: Stack(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CarouselSlider.builder(
-            options: CarouselOptions(
-                height: _deviceHeight,
-                initialPage: 0,
-                viewportFraction: 1,
-                enlargeCenterPage: true,
-                onPageChanged: ((index, reason) => setState(() {
-                      activeIndex = index;
-                    }))),
-            itemCount: 4,
-            itemBuilder: (context, index, realIndex) {
-              final path = imagePath;
-              return buildImage(path, index);
-            },
-          ),
-          // SizedBox(height: 20),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: buildIndicator(),
-          )
-        ],
-        fit: StackFit.expand,
-      ),
+      body: FutureBuilder<void>(
+          future: unSavedImagePrefs.getUnSavedImages(),
+          builder: ((context, AsyncSnapshot snapshot) {
+            _imagePaths = snapshot.data;
+            return Stack(
+              children: [
+                CarouselSlider.builder(
+                  options: CarouselOptions(
+                      height: _deviceHeight,
+                      initialPage: 0,
+                      viewportFraction: 1,
+                      enlargeCenterPage: true,
+                      onPageChanged: ((index, reason) => setState(() {
+                            activeIndex = index;
+                          }))),
+                  itemCount: _imagePaths.length,
+                  itemBuilder: (context, index, realIndex) {
+                    final path = _imagePaths[index];
+                    return buildImage(path, index);
+                  },
+                ),
+                // SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: buildIndicator(),
+                )
+              ],
+              fit: StackFit.expand,
+            );
+          })),
+
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisSize: MainAxisSize.max,
@@ -127,6 +143,7 @@ class _CameraResultPageState extends State<CameraResultPage> {
             // heroTag: 'save',
             onPressed: () async {
               await this.addObservation();
+              unSavedImagePrefs.removeUnSavedImages();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => MenuPage()),
@@ -166,7 +183,7 @@ class _CameraResultPageState extends State<CameraResultPage> {
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
-        count: 4,
+        count: _imagePaths.length,
         effect: JumpingDotEffect(
             dotHeight: 16,
             dotWidth: 16,
