@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:kinoko_note/model/observation.dart';
+import 'package:kinoko_note/model/db.dart';
 import 'firebase_options.dart';
 import 'pages/menu_page.dart';
 

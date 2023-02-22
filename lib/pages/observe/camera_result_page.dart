@@ -3,7 +3,7 @@ import 'package:kinoko_note/components/bottom_sheet.dart';
 import 'package:kinoko_note/pages/menu_page.dart';
 import 'package:kinoko_note/pages/observe/camera_page.dart';
 import 'package:path/path.dart';
-import '../../model/observation.dart';
+import 'package:kinoko_note/model/db.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:io';
@@ -53,14 +53,22 @@ class _CameraResultPageState extends State<CameraResultPage> {
 
   @override
   void dispose() {
-    // unSavedImagePrefs.removeUnSavedImages();
+    unSavedImagePrefs.removeUnSavedImages();
     super.dispose();
   }
 
-  Future<int> addObservation() async {
-    return this
-        .db
-        .addObservation(this.observation.name, basename(this.imagePath));
+  Future<void> addObservation() async {
+    try {
+      int obsId =
+          await this.db.addObservation(this.observation.name, DateTime.now());
+      await this
+          .db
+          .addImages(obsId, await unSavedImagePrefs.getUnSavedImages());
+      unSavedImagePrefs.removeUnSavedImages();
+    } catch (e) {
+      print('保存に失敗しました。');
+      print(e);
+    }
   }
 
   @override
@@ -73,32 +81,36 @@ class _CameraResultPageState extends State<CameraResultPage> {
       body: FutureBuilder<void>(
           future: unSavedImagePrefs.getUnSavedImages(),
           builder: ((context, AsyncSnapshot snapshot) {
-            _imagePaths = snapshot.data;
-            return Stack(
-              children: [
-                CarouselSlider.builder(
-                  options: CarouselOptions(
-                      height: _deviceHeight,
-                      initialPage: 0,
-                      viewportFraction: 1,
-                      enlargeCenterPage: true,
-                      onPageChanged: ((index, reason) => setState(() {
-                            activeIndex = index;
-                          }))),
-                  itemCount: _imagePaths.length,
-                  itemBuilder: (context, index, realIndex) {
-                    final path = _imagePaths[index];
-                    return buildImage(path, index);
-                  },
-                ),
-                // SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: buildIndicator(),
-                )
-              ],
-              fit: StackFit.expand,
-            );
+            if (snapshot.hasData) {
+              _imagePaths = snapshot.data;
+              return Stack(
+                children: [
+                  CarouselSlider.builder(
+                    options: CarouselOptions(
+                        height: _deviceHeight,
+                        initialPage: 0,
+                        viewportFraction: 1,
+                        enlargeCenterPage: true,
+                        onPageChanged: ((index, reason) => setState(() {
+                              activeIndex = index;
+                            }))),
+                    itemCount: _imagePaths.length,
+                    itemBuilder: (context, index, realIndex) {
+                      final path = _imagePaths[index];
+                      return buildImage(path, index);
+                    },
+                  ),
+                  // SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: buildIndicator(),
+                  )
+                ],
+                fit: StackFit.expand,
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
           })),
 
       bottomNavigationBar: BottomAppBar(
