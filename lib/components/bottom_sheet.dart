@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/bottom_button.dart';
 
 Widget builderBottomSheet(context, Function setFormData) {
-  return Container(
+  return SingleChildScrollView(
     padding: EdgeInsets.only(
       top: 15,
       left: 15,
