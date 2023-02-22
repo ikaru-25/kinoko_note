@@ -8,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:io';
 import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
+import 'package:kinoko_note/pages/dictionary/list_page.dart';
 
 class Iobservation {
   late String name;
@@ -124,7 +125,12 @@ class _CameraResultPageState extends State<CameraResultPage> {
             ),
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListPage()),
+                );
+              },
             )
           ],
         ),
