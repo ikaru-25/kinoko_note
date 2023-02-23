@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:kinoko_note/model/db.dart';
 import 'firebase_options.dart';
 import 'pages/menu_page.dart';
+import 'package:kinoko_note/pages/observe/camera_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.teal,
         ),
-        home: MenuPage());
+        home: CameraPage());
     // home: AreaListPage());
   }
 }
