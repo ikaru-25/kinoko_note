@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.teal,
         ),
-        home: CameraPage());
-    // home: AreaListPage());
+        home: MenuPage());
   }
 }
