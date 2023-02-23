@@ -9,16 +9,20 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(context) {
     return BottomAppBar(
+      color: Colors.teal,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.menu, color: Colors.white),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.add_a_photo),
+            icon: Icon(
+              Icons.add_a_photo,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.push(
                 context,
@@ -27,7 +31,7 @@ class BottomNavigation extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
@@ -36,7 +40,7 @@ class BottomNavigation extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Icon(Icons.collections),
+            icon: Icon(Icons.collections, color: Colors.white),
             onPressed: () {
               Navigator.push(
                 context,
