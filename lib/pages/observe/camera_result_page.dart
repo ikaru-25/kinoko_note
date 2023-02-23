@@ -7,7 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:io';
 import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
-import 'package:kinoko_note/pages/dictionary/list_page.dart';
+import 'package:kinoko_note/components/bottom_navigation.dart';
 
 class Iobservation {
   late String name;
@@ -113,27 +113,7 @@ class _CameraResultPageState extends State<CameraResultPage> {
             }
           })),
 
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ListPage()),
-                );
-              },
-            )
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavigation(),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,

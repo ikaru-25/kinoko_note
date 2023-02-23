@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kinoko_note/pages/dictionary/detail_page.dart';
 import 'package:kinoko_note/model/db.dart';
 import 'package:intl/intl.dart';
+import 'package:kinoko_note/components/bottom_navigation.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -59,27 +60,7 @@ class _ListPageState extends State<ListPage> {
           }
         }),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ListPage()),
-                );
-              },
-            )
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:kinoko_note/model/db.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:kinoko_note/pages/dictionary/list_page.dart';
+import 'package:kinoko_note/components/bottom_navigation.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key, required this.observationId}) : super(key: key);
@@ -88,27 +88,7 @@ class _DetailPageState extends State<DetailPage> {
               return const Center(child: CircularProgressIndicator());
             }
           })),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ListPage()),
-                );
-              },
-            )
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 
