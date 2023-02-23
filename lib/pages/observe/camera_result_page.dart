@@ -75,82 +75,100 @@ class _CameraResultPageState extends State<CameraResultPage> {
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('きのこノート'),
-      ),
-      body: FutureBuilder<void>(
-          future: unSavedImagePrefs.getUnSavedImages(),
-          builder: ((context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              _imagePaths = snapshot.data;
-              return Stack(
-                children: [
-                  CarouselSlider.builder(
-                    options: CarouselOptions(
-                        height: _deviceHeight,
-                        initialPage: 0,
-                        viewportFraction: 1,
-                        enlargeCenterPage: true,
-                        onPageChanged: ((index, reason) => setState(() {
-                              activeIndex = index;
-                            }))),
-                    itemCount: _imagePaths.length,
-                    itemBuilder: (context, index, realIndex) {
-                      final path = _imagePaths[index];
-                      return buildImage(path, index);
-                    },
-                  ),
-                  // SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: buildIndicator(),
-                  )
-                ],
-                fit: StackFit.expand,
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          })),
+        appBar: AppBar(
+          title: const Text('きのこノート'),
+        ),
+        body: FutureBuilder<void>(
+            future: unSavedImagePrefs.getUnSavedImages(),
+            builder: ((context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                _imagePaths = snapshot.data;
+                return Stack(
+                  children: [
+                    CarouselSlider.builder(
+                      options: CarouselOptions(
+                          height: _deviceHeight,
+                          initialPage: 0,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
+                          onPageChanged: ((index, reason) => setState(() {
+                                activeIndex = index;
+                              }))),
+                      itemCount: _imagePaths.length,
+                      itemBuilder: (context, index, realIndex) {
+                        final path = _imagePaths[index];
+                        return buildImage(path, index);
+                      },
+                    ),
+                    // SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: buildIndicator(),
+                    )
+                  ],
+                  fit: StackFit.expand,
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            })),
+        bottomNavigationBar: BottomNavigation(),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: FloatingActionButton.extended(
+                      elevation: 4.0,
+                      label: const Text('保存'),
+                      icon: const Icon(Icons.add),
+                      backgroundColor: Colors.orange[700],
+                      heroTag: 'save',
+                      shape: StadiumBorder(
+                        side: const BorderSide(color: Colors.white),
+                      ),
+                      // side: const BorderSide(color: Colors.green),
+                      onPressed: () async {
+                        await this.addObservation();
+                        unSavedImagePrefs.removeUnSavedImages();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MenuPage()),
+                        );
+                      },
+                    ))
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  heroTag: 'camera',
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CameraPage()),
+                    )
+                  },
+                  child: Icon(Icons.add_a_photo),
+                ),
+                FloatingActionButton(
+                  heroTag: 'note',
+                  onPressed: () => _showForm(context),
+                  child: Icon(Icons.edit_note),
+                ),
+              ],
+            ),
+          ],
+        )
 
-      bottomNavigationBar: BottomNavigation(),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            heroTag: 'camera',
-            onPressed: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CameraPage()),
-              )
-            },
-            child: Icon(Icons.add_a_photo),
-          ),
-          FloatingActionButton(
-            heroTag: 'note',
-            onPressed: () => _showForm(context),
-            child: Icon(Icons.edit_note),
-          ),
-          FloatingActionButton.extended(
-            elevation: 4.0,
-            label: const Text('Save'),
-            icon: const Icon(Icons.add),
-            // heroTag: 'save',
-            onPressed: () async {
-              await this.addObservation();
-              unSavedImagePrefs.removeUnSavedImages();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MenuPage()),
-              );
-            },
-          ),
-        ],
-      ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-    );
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        );
   }
 
   void _showForm(context) async {
