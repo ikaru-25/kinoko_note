@@ -43,28 +43,46 @@ class _DetailPageState extends State<DetailPage> {
               _imagePath = snapshot.data[0];
               _observationWithImage = snapshot.data[1];
 
-              return Stack(
+              return Column(
                 children: [
-                  CarouselSlider.builder(
-                      options: CarouselOptions(
-                          initialPage: 0,
-                          viewportFraction: 1,
-                          enlargeCenterPage: true,
-                          onPageChanged: ((index, reason) => setState(() {
-                                activeIndex = index;
-                              }))),
-                      itemCount: _observationWithImage.length,
-                      itemBuilder: (context, index, realIndex) {
-                        final String path =
-                            '${_imagePath?.path}/${_observationWithImage[index].image.image_name}';
-                        return buildImage(path, index);
-                      }),
+                  Card(
+                    child: Column(children: [
+                      Text(
+                        _observationWithImage[0].observation.name,
+                        // style: TextStyle(fontSize: 40),
+                      ),
+                      CarouselSlider.builder(
+                          options: CarouselOptions(
+                              initialPage: 0,
+                              viewportFraction: 1,
+                              enlargeCenterPage: true,
+                              onPageChanged: ((index, reason) => setState(() {
+                                    activeIndex = index;
+                                  }))),
+                          itemCount: _observationWithImage.length,
+                          itemBuilder: (context, index, realIndex) {
+                            final String path =
+                                '${_imagePath?.path}/${_observationWithImage[index].image.image_name}';
+                            return buildImage(path, index);
+                          }),
+                    ]),
+                    margin: EdgeInsets.all(30),
+                    elevation: 10, // 影の離れ具合
+                    shape: RoundedRectangleBorder(
+                      // 枠線を変更できる
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60), // Card左上の角に丸み
+                        bottomRight: Radius.elliptical(40, 20), //Card左上の角の微調整
+                        // (x, y) -> (元の角から左にどれだけ離れているか, 元の角から上にどれだけ離れているか)
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     // child: buildIndicator(),
                   )
                 ],
-                fit: StackFit.expand,
+                // fit: StackFit.expand,
               );
             } else {
               return const Center(child: CircularProgressIndicator());
