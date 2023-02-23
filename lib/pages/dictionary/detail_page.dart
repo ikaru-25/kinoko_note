@@ -3,7 +3,9 @@ import 'package:kinoko_note/model/db.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart' as format;
 import 'package:kinoko_note/components/bottom_navigation.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key, required this.observationId}) : super(key: key);
@@ -19,6 +21,7 @@ class _DetailPageState extends State<DetailPage> {
   late List<ObservationWithImage> _observationWithImage;
 
   int activeIndex = 0;
+  format.DateFormat _dateFormat = format.DateFormat('yyyy-MM-dd');
 
   @override
   void initState() {
@@ -46,25 +49,61 @@ class _DetailPageState extends State<DetailPage> {
               return Column(
                 children: [
                   Card(
-                    child: Column(children: [
-                      Text(
-                        _observationWithImage[0].observation.name,
-                        // style: TextStyle(fontSize: 40),
+                    color: Colors.orange[50],
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      ListTile(
+                        leading: Icon(Icons.label),
+                        title: Text(
+                          _observationWithImage[0].observation.name,
+                        ),
+                        subtitle: Text(
+                            '観察日：${_dateFormat.format(_observationWithImage[0].observation.observation_date)}'),
                       ),
-                      CarouselSlider.builder(
-                          options: CarouselOptions(
-                              initialPage: 0,
-                              viewportFraction: 1,
-                              enlargeCenterPage: true,
-                              onPageChanged: ((index, reason) => setState(() {
-                                    activeIndex = index;
-                                  }))),
-                          itemCount: _observationWithImage.length,
-                          itemBuilder: (context, index, realIndex) {
-                            final String path =
-                                '${_imagePath?.path}/${_observationWithImage[index].image.image_name}';
-                            return buildImage(path, index);
-                          }),
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          CarouselSlider.builder(
+                              options: CarouselOptions(
+                                  initialPage: 0,
+                                  viewportFraction: 1,
+                                  enlargeCenterPage: true,
+                                  onPageChanged: ((index, reason) =>
+                                      setState(() {
+                                        activeIndex = index;
+                                      }))),
+                              itemCount: _observationWithImage.length,
+                              itemBuilder: (context, index, realIndex) {
+                                final String path =
+                                    '${_imagePath?.path}/${_observationWithImage[index].image.image_name}';
+                                return buildImage(path, index);
+                              }),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: buildIndicator(),
+                          )
+                        ],
+                        // fit: StackFit.passthrough,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Column(
+                          textDirection: TextDirection.ltr,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '観察項目1：.....',
+                              // textAlign: TextAlign.left,
+                            ),
+                            SizedBox(
+                              height: 20, //パディング２０
+                            ),
+                            Text(
+                              '観察項目2：.....',
+                              // textAlign: TextAlign.left,
+                            )
+                          ],
+                        ),
+                      )
                     ]),
                     margin: EdgeInsets.all(30),
                     elevation: 10, // 影の離れ具合
@@ -77,10 +116,6 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    // child: buildIndicator(),
-                  )
                 ],
                 // fit: StackFit.expand,
               );
@@ -104,5 +139,15 @@ class _DetailPageState extends State<DetailPage> {
             ))
           ],
         ),
+      );
+
+  Widget buildIndicator() => AnimatedSmoothIndicator(
+        activeIndex: activeIndex,
+        count: _observationWithImage.length,
+        effect: JumpingDotEffect(
+            dotHeight: 16,
+            dotWidth: 16,
+            activeDotColor: Colors.green,
+            dotColor: Colors.white),
       );
 }
