@@ -11,56 +11,31 @@ class MenuPage extends StatelessWidget {
         title: const Text('きのこノート'),
       ),
       body: Center(
-          child: ListView(
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CameraPage()));
-            },
-            child: Card(
-              color: Colors.teal[200],
-              margin: const EdgeInsets.all(15),
-              child: ListTile(
-                leading: Icon(Icons.photo_camera),
-                title: Text("観 察"),
-              ),
-            ),
+        child: ElevatedButton(
+          child: const Text(
+            '観察スタート',
+            style: TextStyle(fontSize: 16),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => IndexPage()),
-              );
-            },
-            child: Card(
-              color: Colors.teal[200],
-              margin: const EdgeInsets.all(15),
-              child: ListTile(
-                leading: Icon(Icons.search),
-                title: Text("図 鑑"),
-              ),
-            ),
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(150, 150),
+            backgroundColor: Colors.teal,
+            foregroundColor: Colors.white,
+            shape: const CircleBorder(
+                // side: BorderSide(
+                //     // color: Colors.black,
+                //     // width: 200,
+                //     // style: BorderStyle.solid,
+                //     ),
+                ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => IndexPage()),
-              );
-            },
-            child: Card(
-              color: Colors.teal[200],
-              margin: const EdgeInsets.all(15),
-              child: ListTile(
-                leading: Icon(Icons.import_contacts),
-                title: Text("観察ガイド"),
-              ),
-            ),
-          ),
-        ],
-      )),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CameraPage()),
+            );
+          },
+        ),
+      ),
       bottomNavigationBar: BottomNavigation(),
     );
   }
