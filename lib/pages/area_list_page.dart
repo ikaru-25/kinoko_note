@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../model/field.dart';
+import 'package:kinoko_note/model/field.dart';
 
 class AreaListPage extends StatefulWidget {
   const AreaListPage({Key? key}) : super(key: key);

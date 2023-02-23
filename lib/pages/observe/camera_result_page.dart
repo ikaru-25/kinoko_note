@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/bottom_sheet.dart';
 import 'package:kinoko_note/pages/menu_page.dart';
 import 'package:kinoko_note/pages/observe/camera_page.dart';
-import 'package:path/path.dart';
 import 'package:kinoko_note/model/db.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
