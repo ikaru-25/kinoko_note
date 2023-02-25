@@ -49,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
               return Column(
                 children: [
                   Card(
-                    color: Colors.orange[50],
+                    // color: Colors.orange[50],
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
                         leading: Icon(Icons.label),
@@ -84,38 +84,58 @@ class _DetailPageState extends State<DetailPage> {
                         ],
                         // fit: StackFit.passthrough,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Column(
-                          textDirection: TextDirection.ltr,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '観察項目1：.....',
-                              // textAlign: TextAlign.left,
-                            ),
-                            SizedBox(
-                              height: 20, //パディング２０
-                            ),
-                            Text(
-                              '観察項目2：.....',
-                              // textAlign: TextAlign.left,
-                            )
-                          ],
-                        ),
-                      )
                     ]),
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.all(20),
                     elevation: 10, // 影の離れ具合
                     shape: RoundedRectangleBorder(
                       // 枠線を変更できる
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60), // Card左上の角に丸み
-                        bottomRight: Radius.elliptical(40, 20), //Card左上の角の微調整
-                        // (x, y) -> (元の角から左にどれだけ離れているか, 元の角から上にどれだけ離れているか)
-                      ),
+                          // topLeft: Radius.circular(60), // Card左上の角に丸み
+                          // bottomRight: Radius.elliptical(40, 20), //Card左上の角の微調整
+                          // (x, y) -> (元の角から左にどれだけ離れているか, 元の角から上にどれだけ離れているか)
+                          ),
                     ),
                   ),
+                  Container(
+                    // decoration:
+                    //     BoxDecoration(border: Border(bottom: BorderSide())),
+                    margin: EdgeInsets.only(left: 20),
+                    child: ListView(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        Divider(),
+                        ListTile(
+                          title: Text('観察項目1'),
+                        ),
+                        Divider(),
+                        ListTile(
+                          title: Text('観察項目2'),
+                        ),
+                      ],
+                    ),
+                  )
+
+                  // Padding(
+                  //   padding: EdgeInsets.all(15.0),
+                  //   child: Column(
+                  //     textDirection: TextDirection.ltr,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Text(
+                  //         '観察項目1：.....',
+                  //         // textAlign: TextAlign.left,
+                  //       ),
+                  //       SizedBox(
+                  //         height: 20, //パディング２０
+                  //       ),
+                  //       Text(
+                  //         '観察項目2：.....',
+                  //         // textAlign: TextAlign.left,
+                  //       )
+                  //     ],
+                  //   ),
+                  // )
                 ],
                 // fit: StackFit.expand,
               );
@@ -128,14 +148,20 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget buildImage(path, index) => Container(
-        color: Colors.grey,
+        // color: Colors.grey,
         child: Column(
           children: [
             Expanded(
                 child: Container(
               width: 600,
               height: 240,
-              child: Image.file(File(path), fit: BoxFit.cover),
+              child: Padding(
+                padding: EdgeInsets.all(4),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.file(File(path), fit: BoxFit.cover),
+                ),
+              ),
             ))
           ],
         ),
