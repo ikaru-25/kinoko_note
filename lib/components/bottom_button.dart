@@ -8,7 +8,7 @@ class BottomButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
+        TextButton(
           onPressed: () async {
             // Navigator.of(context).pop();
           },
@@ -17,7 +17,7 @@ class BottomButton extends StatelessWidget {
         SizedBox(
           width: 30,
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () async {
             // Navigator.of(context).pop();
           },
