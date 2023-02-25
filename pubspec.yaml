@@ -70,11 +70,11 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/ico_main_kinoko.png"
+  image_path: "assets/icons/ico_main.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter_native_splash:
-  image: "assets/icons/ico_main_kinoko.png"
+  image: "assets/icons/splash.png"
   color: "FFFFFF"
   fullscreen: true
 
