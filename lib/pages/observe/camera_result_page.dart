@@ -179,7 +179,9 @@ class _CameraResultPageState extends State<CameraResultPage> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-        builder: (_) => builderBottomSheet(context, setName));
+        builder: (context) {
+          return BottomSheetForm();
+        });
   }
 
   Widget buildImage(path, index) => Container(
