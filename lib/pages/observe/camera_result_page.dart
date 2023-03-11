@@ -9,7 +9,7 @@ import 'dart:io';
 import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
 import 'package:kinoko_note/components/bottom_navigation.dart';
 
-class Iobservation {
+class IObservation {
   late String name;
   late String imageName;
 }
@@ -26,19 +26,19 @@ class _CameraResultPageState extends State<CameraResultPage> {
   late String imagePath;
   late AppDatabase db;
   late List<String> test;
-  late Iobservation observation;
+  late IObservation observation;
   late UnSavedImagePrefs unSavedImagePrefs;
   double? _deviceHeight;
 
   late List<String> _imagePaths;
 
-  void setName(String name) {
-    observation.name = name;
-  }
+  // void setObservation(IObservation inputObservation) {
+  //   observation.name = inputObservation.name ?? observation.name;
+  // }
 
-  void setImagePath(String imageName) {
-    observation.imageName = imageName;
-  }
+  // void setImagePath(String imageName) {
+  //   observation.imageName = imageName;
+  // }
 
   int activeIndex = 0;
 
@@ -46,7 +46,7 @@ class _CameraResultPageState extends State<CameraResultPage> {
   void initState() {
     super.initState();
     imagePath = widget.imagePath;
-    observation = new Iobservation();
+    // observation = new IObservation();
     db = AppDatabase();
     unSavedImagePrefs = UnSavedImagePrefs();
   }

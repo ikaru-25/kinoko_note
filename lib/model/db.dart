@@ -12,6 +12,9 @@ class Observation extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().named('キノコの名前')();
   DateTimeColumn get observation_date => dateTime().named('観察日')();
+  IntColumn get cortex_reverse => integer().named('傘裏の形状')();
+  IntColumn get volva => integer().named('つぼ')();
+  IntColumn get collar => integer().named('つば')();
 }
 
 // 観察画像テーブル
@@ -24,7 +27,6 @@ class ObservationImage extends Table {
 class ObservationWithImage {
   // final Observation observation;
   // final ObservationImage image;
-
   final observation;
   final image;
 

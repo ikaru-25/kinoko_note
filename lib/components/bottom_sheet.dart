@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+class IObservation {
+  late String name;
+  late String imageName;
+}
+
 class BottomSheetForm extends StatefulWidget {
   const BottomSheetForm({Key? key}) : super(key: key);
 
@@ -10,10 +15,16 @@ class BottomSheetForm extends StatefulWidget {
 class _BottomSheet extends State<BottomSheetForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late IObservation observation;
 
   void initState() {
     super.initState();
+    observation = new IObservation();
     _tabController = TabController(length: 2, vsync: this);
+  }
+
+  void setName(String name) {
+    observation.name = name;
   }
 
   @override
