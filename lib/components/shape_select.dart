@@ -52,6 +52,7 @@ class _ShapeSelectState extends State<ShapeSelect> {
         onPressed: () => {
               _showDialog(
                 CupertinoPicker(
+                    backgroundColor: Colors.white,
                     itemExtent: 40,
                     onSelectedItemChanged: (int selectedItem) {
                       setState(() {
@@ -67,11 +68,6 @@ class _ShapeSelectState extends State<ShapeSelect> {
                             AssetImage('assets/icons/shape/shape1.png'),
                             size: 20,
                           ),
-
-                          // Icon(
-                          //   Icons.add_a_photo,
-                          //   color: Colors.white,
-                          // ),
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                             child: Text(_shapes[index]),

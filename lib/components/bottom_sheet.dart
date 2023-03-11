@@ -136,7 +136,9 @@ class _BottomSheet extends State<BottomSheetForm>
                       ),
                       child: Column(
                         children: [
-                          ShapeSelect(),
+                          Row(
+                            children: [Text('形状'), ShapeSelect()],
+                          ),
                           CheckboxListTile(
                             // tileColor: Colors.red,
                             controlAffinity: ListTileControlAffinity.leading,
