@@ -98,8 +98,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/
+  assets: # フォルダ個別に指定する必要がある
+    - assets/icons/shape/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

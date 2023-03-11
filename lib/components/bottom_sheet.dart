@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kinoko_note/components/shape_select.dart';
 
 class BottomSheetForm extends StatefulWidget {
   const BottomSheetForm({Key? key}) : super(key: key);
@@ -135,6 +136,7 @@ class _BottomSheet extends State<BottomSheetForm>
                       ),
                       child: Column(
                         children: [
+                          ShapeSelect(),
                           CheckboxListTile(
                             // tileColor: Colors.red,
                             controlAffinity: ListTileControlAffinity.leading,
