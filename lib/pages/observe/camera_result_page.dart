@@ -8,11 +8,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:io';
 import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
 import 'package:kinoko_note/components/bottom_navigation.dart';
-
-class IObservation {
-  late String name;
-  late String imageName;
-}
+import 'package:kinoko_note/interfaces/observation.interface.dart';
 
 class CameraResultPage extends StatefulWidget {
   const CameraResultPage({Key? key, required this.imagePath}) : super(key: key);
@@ -32,12 +28,12 @@ class _CameraResultPageState extends State<CameraResultPage> {
 
   late List<String> _imagePaths;
 
-  // void setObservation(IObservation inputObservation) {
-  //   observation.name = inputObservation.name ?? observation.name;
-  // }
+  setFormData(IObservation observation) {
+    this.observation = observation;
+  }
 
   // void setImagePath(String imageName) {
-  //   observation.imageName = imageName;
+  // observation.imageName = imageName;
   // }
 
   int activeIndex = 0;
@@ -46,7 +42,7 @@ class _CameraResultPageState extends State<CameraResultPage> {
   void initState() {
     super.initState();
     imagePath = widget.imagePath;
-    // observation = new IObservation();
+    observation = new IObservation();
     db = AppDatabase();
     unSavedImagePrefs = UnSavedImagePrefs();
   }
@@ -59,8 +55,9 @@ class _CameraResultPageState extends State<CameraResultPage> {
 
   Future<void> addObservation() async {
     try {
-      int obsId =
-          await this.db.addObservation(this.observation.name, DateTime.now());
+      print('test------------------2');
+      print(this.observation);
+      int obsId = await this.db.addObservation(this.observation);
       await this
           .db
           .addImages(obsId, await unSavedImagePrefs.getUnSavedImages());
@@ -180,7 +177,9 @@ class _CameraResultPageState extends State<CameraResultPage> {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15))),
         builder: (context) {
-          return BottomSheetForm();
+          return BottomSheetForm(
+            setFormData: setFormData,
+          );
         });
   }
 
