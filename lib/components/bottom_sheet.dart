@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/shape_select.dart';
+import 'package:kinoko_note/interfaces/observation.interface.dart';
 
 class BottomSheetForm extends StatefulWidget {
-  const BottomSheetForm({Key? key}) : super(key: key);
+  const BottomSheetForm({Key? key, required this.setFormData})
+      : super(key: key);
 
+  final Function setFormData;
   @override
   State<BottomSheetForm> createState() => _BottomSheet();
 }
@@ -11,9 +14,11 @@ class BottomSheetForm extends StatefulWidget {
 class _BottomSheet extends State<BottomSheetForm>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late IObservation observation;
 
   void initState() {
     super.initState();
+    observation = new IObservation();
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -67,6 +72,7 @@ class _BottomSheet extends State<BottomSheetForm>
                         children: [
                           TextField(
                             onChanged: (value) {
+                              observation.name = value;
                               // setFormData(value);
                             },
                             decoration:
@@ -90,7 +96,9 @@ class _BottomSheet extends State<BottomSheetForm>
                                   Radio(
                                     value: 0,
                                     groupValue: 0,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      observation.medium = value;
+                                    },
                                   ),
                                   Text('枯木/倒木')
                                 ],
@@ -143,15 +151,19 @@ class _BottomSheet extends State<BottomSheetForm>
                             // tileColor: Colors.red,
                             controlAffinity: ListTileControlAffinity.leading,
                             title: const Text('つば'),
-                            value: true,
-                            onChanged: (bool? value) {},
+                            value: false,
+                            onChanged: (bool? value) {
+                              observation.collar = value;
+                            },
                           ),
                           CheckboxListTile(
                             controlAffinity: ListTileControlAffinity.leading,
                             // tileColor: Colors.red,
                             title: const Text('つぼ'),
-                            value: true,
-                            onChanged: (bool? value) {},
+                            value: false,
+                            onChanged: (bool? value) {
+                              observation.volva = value;
+                            },
                           ),
                           const SizedBox(
                             height: 20,
@@ -215,9 +227,14 @@ class _BottomSheet extends State<BottomSheetForm>
                   Center(
                     child: ElevatedButton(
                       onPressed: () async {
+                        print('test1----------------');
+                        print(observation.name);
+                        this.observation.observation_date = DateTime.now();
+
+                        widget.setFormData(this.observation);
                         // Navigator.of(context).pop();
                       },
-                      child: Text('OK'),
+                      child: Text('入力完了'),
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size.fromWidth(200),
                       ),

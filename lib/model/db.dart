@@ -1,5 +1,6 @@
 import "package:drift/drift.dart";
 import "package:drift/native.dart";
+import 'package:kinoko_note/interfaces/observation.interface.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:path/path.dart' as p;
@@ -12,6 +13,10 @@ class Observation extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get name => text().named('キノコの名前')();
   DateTimeColumn get observation_date => dateTime().named('観察日')();
+  IntColumn get medium => integer().nullable().named('発生場所')();
+  IntColumn get cortex_reverse => integer().nullable().named('傘裏の形状')();
+  BoolColumn get volva => boolean().nullable().named('つぼ')();
+  BoolColumn get collar => boolean().nullable().named('つば')();
 }
 
 // 観察画像テーブル
@@ -24,7 +29,6 @@ class ObservationImage extends Table {
 class ObservationWithImage {
   // final Observation observation;
   // final ObservationImage image;
-
   final observation;
   final image;
 
@@ -97,9 +101,15 @@ class AppDatabase extends _$AppDatabase {
     // return t;
   }
 
-  Future<int> addObservation(String name, DateTime observationDate) {
+  // Future<int> addObservation(String name, DateTime observationDate) {
+  //   return into(observation).insert(ObservationCompanion(
+  //       name: Value(name), observation_date: Value(observationDate)));
+  // }
+
+  Future<int> addObservation(IObservation createObservationData) {
     return into(observation).insert(ObservationCompanion(
-        name: Value(name), observation_date: Value(observationDate)));
+        name: Value(createObservationData.name),
+        observation_date: Value(createObservationData.observation_date)));
   }
 
   // 観察記録に紐づく画像をまとめて保存する。

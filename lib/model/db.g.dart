@@ -11,8 +11,18 @@ class ObservationData extends DataClass implements Insertable<ObservationData> {
   final int id;
   final String name;
   final DateTime observation_date;
+  final int? medium;
+  final int? cortex_reverse;
+  final bool? volva;
+  final bool? collar;
   ObservationData(
-      {required this.id, required this.name, required this.observation_date});
+      {required this.id,
+      required this.name,
+      required this.observation_date,
+      this.medium,
+      this.cortex_reverse,
+      this.volva,
+      this.collar});
   factory ObservationData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
@@ -24,6 +34,14 @@ class ObservationData extends DataClass implements Insertable<ObservationData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}キノコの名前'])!,
       observation_date: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}観察日'])!,
+      medium: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}発生場所']),
+      cortex_reverse: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}傘裏の形状']),
+      volva: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}つぼ']),
+      collar: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}つば']),
     );
   }
   @override
@@ -32,6 +50,18 @@ class ObservationData extends DataClass implements Insertable<ObservationData> {
     map['id'] = Variable<int>(id);
     map['キノコの名前'] = Variable<String>(name);
     map['観察日'] = Variable<DateTime>(observation_date);
+    if (!nullToAbsent || medium != null) {
+      map['発生場所'] = Variable<int?>(medium);
+    }
+    if (!nullToAbsent || cortex_reverse != null) {
+      map['傘裏の形状'] = Variable<int?>(cortex_reverse);
+    }
+    if (!nullToAbsent || volva != null) {
+      map['つぼ'] = Variable<bool?>(volva);
+    }
+    if (!nullToAbsent || collar != null) {
+      map['つば'] = Variable<bool?>(collar);
+    }
     return map;
   }
 
@@ -40,6 +70,15 @@ class ObservationData extends DataClass implements Insertable<ObservationData> {
       id: Value(id),
       name: Value(name),
       observation_date: Value(observation_date),
+      medium:
+          medium == null && nullToAbsent ? const Value.absent() : Value(medium),
+      cortex_reverse: cortex_reverse == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cortex_reverse),
+      volva:
+          volva == null && nullToAbsent ? const Value.absent() : Value(volva),
+      collar:
+          collar == null && nullToAbsent ? const Value.absent() : Value(collar),
     );
   }
 
@@ -50,6 +89,10 @@ class ObservationData extends DataClass implements Insertable<ObservationData> {
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       observation_date: serializer.fromJson<DateTime>(json['observation_date']),
+      medium: serializer.fromJson<int?>(json['medium']),
+      cortex_reverse: serializer.fromJson<int?>(json['cortex_reverse']),
+      volva: serializer.fromJson<bool?>(json['volva']),
+      collar: serializer.fromJson<bool?>(json['collar']),
     );
   }
   @override
@@ -59,72 +102,123 @@ class ObservationData extends DataClass implements Insertable<ObservationData> {
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
       'observation_date': serializer.toJson<DateTime>(observation_date),
+      'medium': serializer.toJson<int?>(medium),
+      'cortex_reverse': serializer.toJson<int?>(cortex_reverse),
+      'volva': serializer.toJson<bool?>(volva),
+      'collar': serializer.toJson<bool?>(collar),
     };
   }
 
   ObservationData copyWith(
-          {int? id, String? name, DateTime? observation_date}) =>
+          {int? id,
+          String? name,
+          DateTime? observation_date,
+          int? medium,
+          int? cortex_reverse,
+          bool? volva,
+          bool? collar}) =>
       ObservationData(
         id: id ?? this.id,
         name: name ?? this.name,
         observation_date: observation_date ?? this.observation_date,
+        medium: medium ?? this.medium,
+        cortex_reverse: cortex_reverse ?? this.cortex_reverse,
+        volva: volva ?? this.volva,
+        collar: collar ?? this.collar,
       );
   @override
   String toString() {
     return (StringBuffer('ObservationData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('observation_date: $observation_date')
+          ..write('observation_date: $observation_date, ')
+          ..write('medium: $medium, ')
+          ..write('cortex_reverse: $cortex_reverse, ')
+          ..write('volva: $volva, ')
+          ..write('collar: $collar')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, observation_date);
+  int get hashCode => Object.hash(
+      id, name, observation_date, medium, cortex_reverse, volva, collar);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ObservationData &&
           other.id == this.id &&
           other.name == this.name &&
-          other.observation_date == this.observation_date);
+          other.observation_date == this.observation_date &&
+          other.medium == this.medium &&
+          other.cortex_reverse == this.cortex_reverse &&
+          other.volva == this.volva &&
+          other.collar == this.collar);
 }
 
 class ObservationCompanion extends UpdateCompanion<ObservationData> {
   final Value<int> id;
   final Value<String> name;
   final Value<DateTime> observation_date;
+  final Value<int?> medium;
+  final Value<int?> cortex_reverse;
+  final Value<bool?> volva;
+  final Value<bool?> collar;
   const ObservationCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.observation_date = const Value.absent(),
+    this.medium = const Value.absent(),
+    this.cortex_reverse = const Value.absent(),
+    this.volva = const Value.absent(),
+    this.collar = const Value.absent(),
   });
   ObservationCompanion.insert({
     this.id = const Value.absent(),
     required String name,
     required DateTime observation_date,
+    this.medium = const Value.absent(),
+    this.cortex_reverse = const Value.absent(),
+    this.volva = const Value.absent(),
+    this.collar = const Value.absent(),
   })  : name = Value(name),
         observation_date = Value(observation_date);
   static Insertable<ObservationData> custom({
     Expression<int>? id,
     Expression<String>? name,
     Expression<DateTime>? observation_date,
+    Expression<int?>? medium,
+    Expression<int?>? cortex_reverse,
+    Expression<bool?>? volva,
+    Expression<bool?>? collar,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'キノコの名前': name,
       if (observation_date != null) '観察日': observation_date,
+      if (medium != null) '発生場所': medium,
+      if (cortex_reverse != null) '傘裏の形状': cortex_reverse,
+      if (volva != null) 'つぼ': volva,
+      if (collar != null) 'つば': collar,
     });
   }
 
   ObservationCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
-      Value<DateTime>? observation_date}) {
+      Value<DateTime>? observation_date,
+      Value<int?>? medium,
+      Value<int?>? cortex_reverse,
+      Value<bool?>? volva,
+      Value<bool?>? collar}) {
     return ObservationCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       observation_date: observation_date ?? this.observation_date,
+      medium: medium ?? this.medium,
+      cortex_reverse: cortex_reverse ?? this.cortex_reverse,
+      volva: volva ?? this.volva,
+      collar: collar ?? this.collar,
     );
   }
 
@@ -140,6 +234,18 @@ class ObservationCompanion extends UpdateCompanion<ObservationData> {
     if (observation_date.present) {
       map['観察日'] = Variable<DateTime>(observation_date.value);
     }
+    if (medium.present) {
+      map['発生場所'] = Variable<int?>(medium.value);
+    }
+    if (cortex_reverse.present) {
+      map['傘裏の形状'] = Variable<int?>(cortex_reverse.value);
+    }
+    if (volva.present) {
+      map['つぼ'] = Variable<bool?>(volva.value);
+    }
+    if (collar.present) {
+      map['つば'] = Variable<bool?>(collar.value);
+    }
     return map;
   }
 
@@ -148,7 +254,11 @@ class ObservationCompanion extends UpdateCompanion<ObservationData> {
     return (StringBuffer('ObservationCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
-          ..write('observation_date: $observation_date')
+          ..write('observation_date: $observation_date, ')
+          ..write('medium: $medium, ')
+          ..write('cortex_reverse: $cortex_reverse, ')
+          ..write('volva: $volva, ')
+          ..write('collar: $collar')
           ..write(')'))
         .toString();
   }
@@ -178,8 +288,34 @@ class $ObservationTable extends Observation
   late final GeneratedColumn<DateTime?> observation_date =
       GeneratedColumn<DateTime?>('観察日', aliasedName, false,
           type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _mediumMeta = const VerificationMeta('medium');
   @override
-  List<GeneratedColumn> get $columns => [id, name, observation_date];
+  late final GeneratedColumn<int?> medium = GeneratedColumn<int?>(
+      '発生場所', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _cortex_reverseMeta =
+      const VerificationMeta('cortex_reverse');
+  @override
+  late final GeneratedColumn<int?> cortex_reverse = GeneratedColumn<int?>(
+      '傘裏の形状', aliasedName, true,
+      type: const IntType(), requiredDuringInsert: false);
+  final VerificationMeta _volvaMeta = const VerificationMeta('volva');
+  @override
+  late final GeneratedColumn<bool?> volva = GeneratedColumn<bool?>(
+      'つぼ', aliasedName, true,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK ("つぼ" IN (0, 1))');
+  final VerificationMeta _collarMeta = const VerificationMeta('collar');
+  @override
+  late final GeneratedColumn<bool?> collar = GeneratedColumn<bool?>(
+      'つば', aliasedName, true,
+      type: const BoolType(),
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK ("つば" IN (0, 1))');
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, name, observation_date, medium, cortex_reverse, volva, collar];
   @override
   String get aliasedName => _alias ?? 'observation';
   @override
@@ -205,6 +341,24 @@ class $ObservationTable extends Observation
               data['観察日']!, _observation_dateMeta));
     } else if (isInserting) {
       context.missing(_observation_dateMeta);
+    }
+    if (data.containsKey('発生場所')) {
+      context.handle(_mediumMeta,
+          medium.isAcceptableOrUnknown(data['発生場所']!, _mediumMeta));
+    }
+    if (data.containsKey('傘裏の形状')) {
+      context.handle(
+          _cortex_reverseMeta,
+          cortex_reverse.isAcceptableOrUnknown(
+              data['傘裏の形状']!, _cortex_reverseMeta));
+    }
+    if (data.containsKey('つぼ')) {
+      context.handle(
+          _volvaMeta, volva.isAcceptableOrUnknown(data['つぼ']!, _volvaMeta));
+    }
+    if (data.containsKey('つば')) {
+      context.handle(
+          _collarMeta, collar.isAcceptableOrUnknown(data['つば']!, _collarMeta));
     }
     return context;
   }
