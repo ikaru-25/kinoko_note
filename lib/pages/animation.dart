@@ -29,9 +29,15 @@ class AnimationPage extends StatelessWidget {
             // ),
             Image.asset('assets/icons/ico_main.png', width: 200)
                 .animate(onPlay: (controller) => controller.repeat())
-                .shimmer(duration: 2.seconds) //
+                .shimmer(duration: 2.seconds) // 点滅
                 .shake(duration: 1.seconds) // 揺れ
                 .slideX(duration: 1.seconds), // X軸方向に移動
+
+            // 別の書き方
+            // Animate(
+            //   effects: [FadeEffect(), ScaleEffect()],
+            //   child: Image.asset('assets/icons/ico_main.png', width: 200),
+            // ),
           ],
         ),
       ),
