@@ -61,6 +61,8 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
 
+  flutter_animate:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -100,6 +102,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets: # フォルダ個別に指定する必要がある
     - assets/icons/shape/
+    - assets/icons/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
