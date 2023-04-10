@@ -58,8 +58,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.2.14
   flutter_stetho: ^0.3.0
-  firebase_core: ^2.4.1
-  firebase_auth: ^4.2.5
+  # firebase_core: ^2.4.1
+  # firebase_auth: ^4.2.5
+  intl:
 
   flutter_animate:
   font_awesome_flutter:

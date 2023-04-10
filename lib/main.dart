@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:kinoko_note/model/db.dart';
-import 'firebase_options.dart';
 import 'pages/menu_page.dart';
-import 'package:kinoko_note/pages/observe/camera_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final db = AppDatabase();
   runApp(MyApp(db: db));
 }
