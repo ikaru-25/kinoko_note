@@ -53,21 +53,36 @@ class RadialAnimation extends StatelessWidget {
   }
 
   _close() {
+    print('AAA!');
+
     controller.reverse();
   }
 
-  _buildButton(double angle, Function btnAction,
-      {Color? color, IconData? icon}) {
+  _buildButton(double angle, {Color? color, IconData? icon}) {
     final double rad = radians(angle);
     return Transform(
         transform: Matrix4.identity()
           ..translate(
               (translation.value) * cos(rad), (translation.value) * sin(rad)),
-        child: FloatingActionButton(
-            child: Icon(icon),
-            backgroundColor: color,
-            onPressed: _close,
-            elevation: 0));
+        child:
+            // FloatingActionButton(
+            //   child: Icon(icon),
+            //   backgroundColor: color,
+            //   onPressed: () {
+            //     print('テスト!');
+            //   },
+            //   // elevation: 0
+            // )
+            GestureDetector(
+          child: Center(child: Icon(icon)),
+          onTap: () {
+            print('テスト!');
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => CameraPage()),
+            //     );
+          },
+        ));
   }
 
   _buildDot(double angle, {Color? color}) {
@@ -84,17 +99,14 @@ class RadialAnimation extends StatelessWidget {
         animation: controller,
         builder: (context, builder) {
           return Stack(alignment: Alignment.center, children: [
-            _buildButton(0, () => {}, color: Colors.pink, icon: Icons.search),
-            _buildButton(45, () => {},
-                color: Colors.green, icon: Icons.collections),
-            _buildButton(90, () => {}, color: Colors.orange, icon: Icons.menu),
-            _buildButton(135, () => {},
-                color: Colors.indigo, icon: Icons.settings),
+            _buildButton(0, color: Colors.pink, icon: Icons.search),
+            _buildButton(45, color: Colors.green, icon: Icons.collections),
+            _buildButton(90, color: Colors.orange, icon: Icons.menu),
+            _buildButton(135, color: Colors.indigo, icon: Icons.settings),
             _buildDot(180, color: Colors.teal[200]),
             _buildDot(225, color: Colors.teal[200]),
             _buildDot(270, color: Colors.teal[200]),
-            _buildButton(315, () => {},
-                color: Colors.blue, icon: Icons.add_a_photo),
+            _buildButton(315, color: Colors.blue, icon: Icons.add_a_photo),
             Transform.scale(
               scale: scale.value -
                   1.5, // subtract the beginning value to run the opposite animation
