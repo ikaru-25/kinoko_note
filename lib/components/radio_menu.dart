@@ -53,8 +53,6 @@ class RadialAnimation extends StatelessWidget {
   }
 
   _close() {
-    print('AAA!');
-
     controller.reverse();
   }
 
@@ -76,7 +74,6 @@ class RadialAnimation extends StatelessWidget {
             GestureDetector(
           child: Center(child: Icon(icon)),
           onTap: () {
-            print('テスト!');
             //     Navigator.push(
             //       context,
             //       MaterialPageRoute(builder: (context) => CameraPage()),

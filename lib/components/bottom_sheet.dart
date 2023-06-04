@@ -227,8 +227,6 @@ class _BottomSheet extends State<BottomSheetForm>
                   Center(
                     child: ElevatedButton(
                       onPressed: () async {
-                        print('test1----------------');
-                        print(observation.name);
                         this.observation.observation_date = DateTime.now();
 
                         widget.setFormData(this.observation);

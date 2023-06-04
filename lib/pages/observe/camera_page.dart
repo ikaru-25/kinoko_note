@@ -46,12 +46,8 @@ class _CameraPageState extends State<CameraPage> {
     final Uint8List buffer = await image.readAsBytes();
 
     String? _imagePath = (await getExternalStorageDirectory())?.path;
-    print("画像フォルダを表示------------------------");
-    print(_imagePath);
-
     final String savePath = '$_imagePath/${image.name}';
     final File saveFile = File(savePath);
-    print(savePath);
     saveFile.writeAsBytesSync(buffer, flush: true, mode: FileMode.write);
 
     UnSavedImagePrefs().setUnSavedImages(image.path);
@@ -73,7 +69,6 @@ class _CameraPageState extends State<CameraPage> {
             builder: ((context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 _controller = snapshot.data;
-                print(snapshot.data);
                 return Center(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -96,9 +91,6 @@ class _CameraPageState extends State<CameraPage> {
         onPressed: () async {
           // final image = await _controller.takePicture();
           final image = await getImage();
-
-          print(image.path);
-
           await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => CameraResultPage(imagePath: image.path),

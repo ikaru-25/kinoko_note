@@ -55,17 +55,12 @@ class _CameraResultPageState extends State<CameraResultPage> {
 
   Future<void> addObservation() async {
     try {
-      print('test------------------2');
-      print(this.observation);
       int obsId = await this.db.addObservation(this.observation);
       await this
           .db
           .addImages(obsId, await unSavedImagePrefs.getUnSavedImages());
       unSavedImagePrefs.removeUnSavedImages();
-    } catch (e) {
-      print('保存に失敗しました。');
-      print(e);
-    }
+    } catch (e) {}
   }
 
   @override

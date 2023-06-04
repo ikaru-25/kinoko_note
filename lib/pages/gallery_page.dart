@@ -38,7 +38,6 @@ class _GalleryPageState extends State<GalleryPage> {
                 mainAxisSpacing: 8.0,
               ),
               itemBuilder: ((context, index) {
-                print(images[index]);
                 // キャストなしに出来るか？
                 return Image.file(images[index] as File, fit: BoxFit.cover);
               }),

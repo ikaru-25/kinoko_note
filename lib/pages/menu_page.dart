@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './observe/camera_page.dart';
-import 'package:kinoko_note/components/bottom_navigation.dart';
+// import './observe/camera_page.dart';
+// import 'package:kinoko_note/components/bottom_navigation.dart';
 import 'package:kinoko_note/components/radio_menu.dart';
 
 class MenuPage extends StatelessWidget {
