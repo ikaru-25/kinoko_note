@@ -3,7 +3,7 @@ on:
   pull_request:
     branches:
       - test_animation
-      - test_animation
+      - test_cicd
 jobs:
   test:
     name: Check the source code
