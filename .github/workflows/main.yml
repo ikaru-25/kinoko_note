@@ -4,6 +4,7 @@ on:
     branches:
       - test_animation
       - test_cicd
+      - main
 jobs:
   test:
     name: Check the source code
@@ -12,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2.3.0
         with:
-          flutter-version: "3.3.10"
+          flutter-version: "3.7.3"
       - name: Install packages
         run: flutter pub get
       - name: Linter
