@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kinoko_note/pages/dictionary/list_page.dart';
-import 'package:kinoko_note/pages/gallery_page.dart';
-import 'package:kinoko_note/pages/observe/camera_page.dart';
-import 'package:kinoko_note/pages/animation.dart';
+// import 'package:kinoko_note/pages/dictionary/list_page.dart';
+// import 'package:kinoko_note/pages/gallery_page.dart';
+// import 'package:kinoko_note/pages/observe/camera_page.dart';
+// import 'package:kinoko_note/pages/animation.dart';
 
 class RadialMenu extends StatefulWidget {
   createState() => _RadialMenuState();
@@ -108,15 +108,14 @@ class RadialAnimation extends StatelessWidget {
               scale: scale.value -
                   1.5, // subtract the beginning value to run the opposite animation
               child: FloatingActionButton(
-                  child: Icon(FontAwesomeIcons.timesCircle),
+                  child: Icon(FontAwesomeIcons.timeline),
                   onPressed: _close,
                   backgroundColor: Colors.red),
             ),
             Transform.scale(
               scale: scale.value,
               child: FloatingActionButton(
-                  child: Icon(FontAwesomeIcons.solidDotCircle),
-                  onPressed: _open),
+                  child: Icon(FontAwesomeIcons.circle), onPressed: _open),
             )
           ]);
         });
