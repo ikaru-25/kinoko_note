@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:vector_math/vector_math.dart' show radians;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:kinoko_note/pages/dictionary/list_page.dart';
-// import 'package:kinoko_note/pages/gallery_page.dart';
-// import 'package:kinoko_note/pages/observe/camera_page.dart';
-// import 'package:kinoko_note/pages/animation.dart';
 
 class RadialMenu extends StatefulWidget {
   createState() => _RadialMenuState();
