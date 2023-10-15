@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/shape_select.dart';
-import 'package:kinoko_note/interfaces/observation.interface.dart';
+
+import '../src/domain/observationn/observation.interface.dart';
+// import 'package:kinoko_note/interfaces/observation.interface.dart';
 
 class BottomSheetForm extends StatefulWidget {
   const BottomSheetForm({Key? key, required this.setFormData})

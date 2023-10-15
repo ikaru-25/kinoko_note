@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:kinoko_note/components/bottom_sheet.dart';
 import 'package:kinoko_note/pages/menu_page.dart';
 import 'package:kinoko_note/pages/observe/camera_page.dart';
-import 'package:kinoko_note/model/db.dart';
+import 'package:kinoko_note/src/data/db.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:io';
 import 'package:kinoko_note/preferences/unSavedImagePrefs.dart';
 import 'package:kinoko_note/components/bottom_navigation.dart';
-import 'package:kinoko_note/interfaces/observation.interface.dart';
+
+import '../../src/domain/observationn/observation.interface.dart';
+// import 'package:kinoko_note/interfaces/observation.interface.dart';
 
 class CameraResultPage extends StatefulWidget {
   const CameraResultPage({Key? key, required this.imagePath}) : super(key: key);

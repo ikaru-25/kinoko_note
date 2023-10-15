@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kinoko_note/model/db.dart';
+import 'package:kinoko_note/src/data/db.dart';
 import 'pages/menu_page.dart';
 
 void main() async {

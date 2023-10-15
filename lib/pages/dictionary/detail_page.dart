@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kinoko_note/model/db.dart';
+import 'package:kinoko_note/src/data/db.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';

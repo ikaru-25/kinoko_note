@@ -1,30 +1,15 @@
 import "package:drift/drift.dart";
 import "package:drift/native.dart";
-import 'package:kinoko_note/interfaces/observation.interface.dart';
+// import 'package:kinoko_note/interfaces/observation.interface.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path/path.dart';
-// part 'package:kinoko_note/model/observation.g.dart';
+import '../domain/observationn/observation.interface.dart';
+import 'observation/observation.dart';
+import 'observation/observationImage.dart';
 part 'db.g.dart';
-
-// 観察テーブル
-class Observation extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text().named('キノコの名前')();
-  DateTimeColumn get observation_date => dateTime().named('観察日')();
-  IntColumn get medium => integer().nullable().named('発生場所')();
-  IntColumn get cortex_reverse => integer().nullable().named('傘裏の形状')();
-  BoolColumn get volva => boolean().nullable().named('つぼ')();
-  BoolColumn get collar => boolean().nullable().named('つば')();
-}
-
-// 観察画像テーブル
-class ObservationImage extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  IntColumn get observation_id => integer().named('観察ID')();
-  TextColumn get image_name => text().named('ファイル名')();
-}
+// part 'observation/observation.repository.dart';
 
 class ObservationWithImage {
   // final Observation observation;

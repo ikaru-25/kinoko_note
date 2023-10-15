@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kinoko_note/pages/dictionary/detail_page.dart';
-import 'package:kinoko_note/model/db.dart';
+import 'package:kinoko_note/src/data/db.dart';
 import 'package:intl/intl.dart';
 import 'package:kinoko_note/components/bottom_navigation.dart';
 
